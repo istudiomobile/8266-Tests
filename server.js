@@ -17,7 +17,7 @@ server.on('request', function (req, res) {
         var post = querystring.parse(body);
         console.log(post);
         res.writeHead(200, {'Content-Type': 'text/plain'});
-        res.end('Hello World\n');
+        res.end('It does work!\n');
     });
 });
 
