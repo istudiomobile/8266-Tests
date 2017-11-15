@@ -1,13 +1,13 @@
-var http = require('http');
+//Import the necessary libraries/declare the necessary objects
+var express = require("express");
+var myParser = require("body-parser");
+var app = express();
 
-var server = http.createServer(function(request, response) {
-
-    response.writeHead(200, {"Content-Type": "text/plain"});
-    response.end("Hello World!");
-
+app.use(myParser.urlencoded({extended : true}));
+app.post("/main", function(request, response) {
+    console.log(request.body); //This prints the JSON document received (if it is a JSON document)
 });
 
+//Start the server and make it listen for connections on port 1337
 var port = process.env.PORT || 1337;
-server.listen(port);
-
-console.log("Server running at http://localhost:%d", port);
+app.listen(port);
