@@ -1,13 +1,24 @@
-//Import the necessary libraries/declare the necessary objects
-var express = require("express");
-var myParser = require("body-parser");
-var app = express();
+var http = require('http');
+var querystring = require('querystring');
 
-app.use(myParser.urlencoded({extended : true}));
-app.post("/main", function(request, response) {
-    console.log(request.body); //This prints the JSON document received (if it is a JSON document)
+var port = process.env.PORT || 1337;
+var server = http.createServer().listen(port);
+
+server.on('request', function (req, res) {
+    if (req.method == 'POST') {
+        var body = '';
+    }
+
+    req.on('data', function (data) {
+        body += data;
+    });
+
+    req.on('end', function () {
+        var post = querystring.parse(body);
+        console.log(post);
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.end('Hello World\n');
+    });
 });
 
-//Start the server and make it listen for connections on port 1337
-var port = process.env.PORT || 1337;
-app.listen(port);
+console.log('Listening on port 1337');
